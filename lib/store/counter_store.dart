@@ -8,13 +8,21 @@ abstract class _CounterStore with Store {
   @observable
   int counter = 0;
 
+  @observable
+  bool autorun = false;
+
+  @action
+  setAutoRun(bool autorun) {
+    this.autorun = autorun;
+  }
+
   @action
   increment() {
     counter += 1;
   }
 
   @action
-  decreament() {
-    counter -= 1;
+  reset() {
+    counter = 0;
   }
 }

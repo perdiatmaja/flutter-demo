@@ -24,8 +24,34 @@ mixin _$CounterStore on _CounterStore, Store {
     });
   }
 
+  final _$autorunAtom = Atom(name: '_CounterStore.autorun');
+
+  @override
+  bool get autorun {
+    _$autorunAtom.reportRead();
+    return super.autorun;
+  }
+
+  @override
+  set autorun(bool value) {
+    _$autorunAtom.reportWrite(value, super.autorun, () {
+      super.autorun = value;
+    });
+  }
+
   final _$_CounterStoreActionController =
       ActionController(name: '_CounterStore');
+
+  @override
+  dynamic setAutoRun(bool autorun) {
+    final _$actionInfo = _$_CounterStoreActionController.startAction(
+        name: '_CounterStore.setAutoRun');
+    try {
+      return super.setAutoRun(autorun);
+    } finally {
+      _$_CounterStoreActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic increment() {
@@ -39,11 +65,11 @@ mixin _$CounterStore on _CounterStore, Store {
   }
 
   @override
-  dynamic decreament() {
+  dynamic reset() {
     final _$actionInfo = _$_CounterStoreActionController.startAction(
-        name: '_CounterStore.decreament');
+        name: '_CounterStore.reset');
     try {
-      return super.decreament();
+      return super.reset();
     } finally {
       _$_CounterStoreActionController.endAction(_$actionInfo);
     }
@@ -52,7 +78,8 @@ mixin _$CounterStore on _CounterStore, Store {
   @override
   String toString() {
     return '''
-counter: ${counter}
+counter: ${counter},
+autorun: ${autorun}
     ''';
   }
 }

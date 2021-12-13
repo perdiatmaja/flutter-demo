@@ -1,6 +1,7 @@
 import 'package:atmaja_flutter_demo/widget/mainmenu_screen.dart';
 import 'package:atmaja_flutter_demo/widget/navigator/navigator_menu_screen.dart';
 import 'package:atmaja_flutter_demo/widget/navigator/navigator_push.dart';
+import 'package:atmaja_flutter_demo/widget/state/state_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -16,6 +17,7 @@ class AppRouter {
   static generateRoute() => <String, WidgetBuilder>{
         HOME: (_) => const MainmenuScreen(),
         NAVIGATOR: (_) => const NavigatorMenuScreen(),
-        NAVIGATOR_PUSH: (_) => const NavigatorPush()
+        NAVIGATOR_PUSH: (_) => const NavigatorPush(),
+        STATE: (_) => const StateScreen()
       };
 }
