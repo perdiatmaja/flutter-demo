@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 
-class StateScreen extends StatefulWidget {
-  const StateScreen({Key? key}) : super(key: key);
+class StateMobxScreen extends StatefulWidget {
+  const StateMobxScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _StateScreen();
+  State<StatefulWidget> createState() => _StateMobxScreen();
 }
 
-class _StateScreen extends State<StateScreen> {
+class _StateMobxScreen extends State<StateMobxScreen> {
   final _store = CounterStore();
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Flutter Demo"),
+          title: const Text("Mobx Demo"),
         ),
         body: Observer(builder: (_) {
           if (_store.autorun) {
@@ -35,8 +35,10 @@ class _StateScreen extends State<StateScreen> {
   _createMenuWidget() => Column(
         children: [
           Observer(builder: (_) {
-            if (_store.counter > 5 && !_store.autorun)
+            if (_store.counter > 5 && !_store.autorun) {
               Navigator.of(context).pushNamed(AppRouter.NAVIGATOR_PUSH);
+            }
+
             return Padding(
               padding: const EdgeInsets.all(16),
               child: Text(_store.counter.toString()),
