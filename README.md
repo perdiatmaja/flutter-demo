@@ -1,4 +1,4 @@
-# mss_example
+# Atmaja Flutter Demo
 
 A new Flutter project.
 
