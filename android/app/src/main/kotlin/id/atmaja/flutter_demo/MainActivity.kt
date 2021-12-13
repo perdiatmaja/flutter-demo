@@ -1,4 +1,4 @@
-package com.example.mss_example
+package id.atmaja.flutter_demo
 
 import io.flutter.embedding.android.FlutterActivity
 
