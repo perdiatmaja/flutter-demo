@@ -9,11 +9,14 @@ abstract class _CounterStore with Store {
   int counter = 0;
 
   @observable
-  bool autorun = false;
+  bool _nonWidgetReaction = false;
+
+  @computed
+  bool get nonWidgetReaction => _nonWidgetReaction;
 
   @action
-  setAutoRun(bool autorun) {
-    this.autorun = autorun;
+  setNonWidgetReaction(bool nonWidgetReaction) {
+    _nonWidgetReaction = nonWidgetReaction;
   }
 
   @action

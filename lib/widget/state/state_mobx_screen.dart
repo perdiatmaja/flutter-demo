@@ -13,29 +13,20 @@ class StateMobxScreen extends StatefulWidget {
 
 class _StateMobxScreen extends State<StateMobxScreen> {
   final _store = CounterStore();
+  ReactionDisposer? _reactionDisposer;
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: const Text("Mobx Demo"),
         ),
-        body: Observer(builder: (_) {
-          if (_store.autorun) {
-            autorun((_) {
-              if (_store.counter > 5) {
-                Navigator.of(context).pushNamed(AppRouter.NAVIGATOR_PUSH);
-              }
-            });
-          }
-
-          return _createMenuWidget();
-        }),
+        body: _createMenuWidget(),
       );
 
   _createMenuWidget() => Column(
         children: [
           Observer(builder: (_) {
-            if (_store.counter > 5 && !_store.autorun) {
+            if (_store.counter > 5 && !_store.nonWidgetReaction) {
               Navigator.of(context).pushNamed(AppRouter.NAVIGATOR_PUSH);
             }
 
@@ -44,15 +35,18 @@ class _StateMobxScreen extends State<StateMobxScreen> {
               child: Text(_store.counter.toString()),
             );
           }),
-          Observer(
-              builder: (_) => Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(_store.autorun ? "ON" : "OFF"),
-                  )),
+          Observer(builder: (_) {
+            _runNonWidgetReaction();
+
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(_store.nonWidgetReaction ? "ON" : "OFF"),
+            );
+          }),
           _createButton("Add", () => _store.increment()),
           _createButton("Reset Counter", () => _store.reset()),
-          _createButton(
-              "Toggle Auto Run", () => _store.setAutoRun(!_store.autorun))
+          _createButton("Toggle Auto Run",
+              () => _store.setNonWidgetReaction(!_store.nonWidgetReaction))
         ],
       );
 
@@ -66,4 +60,16 @@ class _StateMobxScreen extends State<StateMobxScreen> {
               child: Text(buttonName),
             )),
       );
+
+  _runNonWidgetReaction() {
+    _reactionDisposer?.call();
+
+    if (_store.nonWidgetReaction) {
+      _reactionDisposer = reaction((_) => _store.counter, (int newValue) {
+        if (newValue >= 5) {
+          Navigator.of(context).pushNamed(AppRouter.NAVIGATOR_PUSH);
+        }
+      });
+    }
+  }
 }
