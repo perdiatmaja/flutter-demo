@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "local-debug",
+      "program": "lib/local_main.dart",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "local-release",
+      "program": "lib/local_main.dart",
+      "request": "launch",
+      "type": "dart",
+      "args": ["--release"]
+    },
+    {
+      "name": "prod",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "type": "dart",
+      "args": ["--release"]
+    },
+    {
+      "name": "flutter-core-app (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Flutter: Attach",
+      "request": "attach",
+      "type": "dart"
+    }
+  ]
+}
